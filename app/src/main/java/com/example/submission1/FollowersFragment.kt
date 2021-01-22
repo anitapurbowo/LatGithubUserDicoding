@@ -1,77 +1,60 @@
 package com.example.submission1
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.service.autofill.UserData
 import android.util.Log
+import androidx.fragment.app.Fragment
+import android.view.LayoutInflater
 import android.view.View
-import android.widget.SearchView
+import android.view.ViewGroup
 import android.widget.Toast
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.submission1.databinding.ActivityMainBinding
 import com.loopj.android.http.AsyncHttpClient
 import com.loopj.android.http.AsyncHttpResponseHandler
 import cz.msebera.android.httpclient.Header
-import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.fragment_followers.*
 import org.json.JSONArray
 import org.json.JSONObject
 
-class MainActivity : AppCompatActivity() {
-    private lateinit var binding : ActivityMainBinding
-    private val list = ArrayList<GitHubUser>()
-    var i=0;
+class FollowersFragment : Fragment() {
+    private var list: ArrayList<GitHubUser> = ArrayList()
+    private lateinit var adapter : folUserAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-
-        binding.rvGitUser.setHasFixedSize(true)
-        binding.rvGitUser.addItemDecoration(DividerItemDecoration(this,DividerItemDecoration.VERTICAL))
-
-        getListUser("q")
-
-        svUser.setOnQueryTextListener(object : androidx.appcompat.widget.SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(p0: String?): Boolean {
-                if (p0?.isEmpty()!!) {
-                    list.clear()
-                    getListUser("q")
-                }
-                else {
-                    list.clear()
-                    getListUser(p0)
-                    Log.d("ABC",i.toString())
-                    i+=1
-                }
-                return true
-            }
-
-            override fun onQueryTextChange(p0: String?): Boolean {
-                return false
-            }
-        })
     }
 
-    fun getListUser(user : String) { //}: ArrayList<GitHubUser> {
-        binding.pBar.visibility = View.VISIBLE
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,savedInstanceState: Bundle?): View? {
+        return inflater.inflate(R.layout.fragment_followers, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        adapter = folUserAdapter(list)
+        list.clear()
+        val dataUser = activity!!.intent.getParcelableExtra<GitHubUser>("kirimData") as GitHubUser
+        isiList(dataUser?.nama)
+    }
+
+    private fun isiList(user : String) {
+        pBar.visibility = View.VISIBLE
         val client = AsyncHttpClient()
-//        val listUser = ArrayList<GitHubUser>()
 
         client.addHeader("User-Agent", "request")
         client.addHeader("Authorization", "token 78cf249fba5c703f1cf6fccb05df136fac606ebf")
-        val url = "https://api.github.com/search/users?q="+user
+        val url = "https://api.github.com/users/$user/followers"
         client.get(url, object : AsyncHttpResponseHandler() {
             override fun onSuccess(
                 statusCode: Int,
                 headers: Array<out Header>?,
                 responseBody: ByteArray
             ) {
-                binding.pBar.visibility = View.INVISIBLE
+                pBar.visibility = View.INVISIBLE
                 var result = String(responseBody)
 
-                val JSONObjectTemp = JSONObject(result)
-                val jsonArray = JSONObjectTemp.getJSONArray("items")
+//                val JSONObjectTemp = JSONObject(result)
+                val jsonArray = JSONArray(result)
                 for (i in 0 until jsonArray.length()) {
                     val JSONObject = jsonArray.getJSONObject(i)
                     val dataNama = JSONObject.getString("login").toString()
@@ -89,14 +72,14 @@ class MainActivity : AppCompatActivity() {
                 responseBody: ByteArray?,
                 error: Throwable?
             ) {
-                binding.pBar.visibility = View.INVISIBLE
+                pBar.visibility = View.INVISIBLE
                 val errorMessage = when (statusCode) {
                     401 -> "$statusCode : Bad Request"
                     403 -> "$statusCode : Forbidden"
                     404 -> "$statusCode : Not Found"
                     else -> "$statusCode : ${error?.message}"
                 }
-                Toast.makeText(this@MainActivity, errorMessage, Toast.LENGTH_SHORT).show()
+                Toast.makeText(activity, errorMessage, Toast.LENGTH_SHORT).show()
             }
         })
     }
@@ -145,17 +128,24 @@ class MainActivity : AppCompatActivity() {
         })
     }
     private fun showRecyclerList() {
-        binding.rvGitUser.layoutManager = LinearLayoutManager(this)
+        rvUser.layoutManager = LinearLayoutManager(activity)
         val listUserAdapter = listUserAdapter(list)
-        binding.rvGitUser.adapter = listUserAdapter
+        rvUser.adapter = listUserAdapter
 
         listUserAdapter.setOnItemClickCallback(object : listUserAdapter.OnItemClickCallback{
             override fun onItemClicked(data: GitHubUser) {
-                val intentBaru = Intent(this@MainActivity, detUser::class.java)
+                val intentBaru = Intent(activity, detUser::class.java)
                 intentBaru.putExtra("kirimData", data)
                 startActivity(intentBaru)
             }
         })
     }
-}
 
+    companion object {
+        @JvmStatic
+        fun newInstance(param1: String, param2: String) =
+            FollowersFragment().apply {
+
+            }
+    }
+}

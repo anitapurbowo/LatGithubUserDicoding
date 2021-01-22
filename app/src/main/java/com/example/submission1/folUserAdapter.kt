@@ -11,7 +11,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.submission1.databinding.ItemlistBinding
 
-class listUserAdapter (private val listUser:ArrayList<GitHubUser>) : RecyclerView.Adapter<listUserAdapter.ListViewHolder>() {
+class folUserAdapter (private val listUser:ArrayList<GitHubUser>) : RecyclerView.Adapter<folUserAdapter.ListViewHolder>() {
     private var onItemClickCallback: OnItemClickCallback? = null
 
     interface OnItemClickCallback {
