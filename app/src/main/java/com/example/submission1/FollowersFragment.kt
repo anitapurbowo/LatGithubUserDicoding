@@ -2,7 +2,6 @@ package com.example.submission1
 
 import android.content.Intent
 import android.os.Bundle
-import android.service.autofill.UserData
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -42,7 +41,7 @@ class FollowersFragment : Fragment() {
         val client = AsyncHttpClient()
 
         client.addHeader("User-Agent", "request")
-        client.addHeader("Authorization", "token 78cf249fba5c703f1cf6fccb05df136fac606ebf")
+        client.addHeader("Authorization", "token "+getString(R.string.key))
         val url = "https://api.github.com/users/$user/followers"
         client.get(url, object : AsyncHttpResponseHandler() {
             override fun onSuccess(
@@ -53,7 +52,6 @@ class FollowersFragment : Fragment() {
                 pBar.visibility = View.INVISIBLE
                 var result = String(responseBody)
 
-//                val JSONObjectTemp = JSONObject(result)
                 val jsonArray = JSONArray(result)
                 for (i in 0 until jsonArray.length()) {
                     val JSONObject = jsonArray.getJSONObject(i)
@@ -87,7 +85,7 @@ class FollowersFragment : Fragment() {
     fun getDetailUser(dataNama : String, dataAvatar : String, urldet : String) {
         val clientdet = AsyncHttpClient()
         clientdet.addHeader("User-Agent", "request")
-        clientdet.addHeader("Authorization", "token 78cf249fba5c703f1cf6fccb05df136fac606ebf")
+        clientdet.addHeader("Authorization", "token "+getString(R.string.key))
 
         clientdet.get(urldet, object : AsyncHttpResponseHandler(){
             override fun onSuccess(
@@ -99,10 +97,10 @@ class FollowersFragment : Fragment() {
                 val resultdet = String(responseBody)
 
                 val JSONObjectDet = JSONObject(resultdet)
-                val dataCompany = JSONObjectDet.getString("company").toString()
+                val dataCompany = getString(R.string.company) + JSONObjectDet.getString("company").toString()
                 val dataFollowers = JSONObjectDet.getString("followers").toString()
                 val dataLocation = JSONObjectDet.getString("location").toString()
-                val dataRepos = JSONObjectDet.getString("public_repos").toString()
+                val dataRepos = getString(R.string.repository) + JSONObjectDet.getString("public_repos").toString()
                 val githubUsr = GitHubUser(
                     dataNama,
                     dataCompany,

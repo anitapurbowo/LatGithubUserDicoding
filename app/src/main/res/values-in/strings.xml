@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">API GitHub User</string>
+    <string name="followers">Pengikut</string>
+    <string name="following">Mengikuti</string>
+    <string name="company">Perusahaan : </string>
+    <string name="repository">Penyimpanan : </string>
+    <string name="lang_setting">Ubah Bahasa</string>
+
+    <string name="key">78579304accaafc2a639e5515512a47bd1b4d079</string>
+</resources>

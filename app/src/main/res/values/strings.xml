@@ -2,5 +2,9 @@
     <string name="app_name">API GitHub User</string>
     <string name="followers">Followers</string>
     <string name="following">Following</string>
-    <string name="lang_setting">Change Language Setting</string>
+    <string name="company">Company : </string>
+    <string name="repository">Repository : </string>
+    <string name="lang_setting">Change Language</string>
+
+    <string name="key">78579304accaafc2a639e5515512a47bd1b4d079</string>
 </resources>

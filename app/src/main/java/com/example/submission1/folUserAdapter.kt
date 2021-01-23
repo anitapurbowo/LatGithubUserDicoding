@@ -1,14 +1,9 @@
 package com.example.submission1
 
-import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
 import com.example.submission1.databinding.ItemlistBinding
 
 class folUserAdapter (private val listUser:ArrayList<GitHubUser>) : RecyclerView.Adapter<folUserAdapter.ListViewHolder>() {
@@ -26,8 +21,8 @@ class folUserAdapter (private val listUser:ArrayList<GitHubUser>) : RecyclerView
         fun bind(gitUser : GitHubUser) {
             with(binding) {
                 tvNama.text = gitUser.nama
-                tvCompany.text = "Company : " + gitUser.company
-                tvRepos.text = "Repository : " + gitUser.repository
+                tvCompany.text = gitUser.company
+                tvRepos.text = gitUser.repository
                 Glide.with(binding.root).load(gitUser.image).into(imAvatar)
                 //imAvatar.setImageResource(gitUser.image)
                 cardAll.setOnClickListener {

@@ -3,9 +3,11 @@ package com.example.submission1
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.Settings
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
-import android.widget.SearchView
 import android.widget.Toast
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -14,7 +16,6 @@ import com.loopj.android.http.AsyncHttpClient
 import com.loopj.android.http.AsyncHttpResponseHandler
 import cz.msebera.android.httpclient.Header
 import kotlinx.android.synthetic.main.activity_main.*
-import org.json.JSONArray
 import org.json.JSONObject
 
 class MainActivity : AppCompatActivity() {
@@ -53,13 +54,12 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
-    fun getListUser(user : String) { //}: ArrayList<GitHubUser> {
+    fun getListUser(user : String) {
         binding.pBar.visibility = View.VISIBLE
         val client = AsyncHttpClient()
-//        val listUser = ArrayList<GitHubUser>()
 
         client.addHeader("User-Agent", "request")
-        client.addHeader("Authorization", "token 78cf249fba5c703f1cf6fccb05df136fac606ebf")
+        client.addHeader("Authorization", "token "+getString(R.string.key))
         val url = "https://api.github.com/search/users?q="+user
         client.get(url, object : AsyncHttpResponseHandler() {
             override fun onSuccess(
@@ -104,7 +104,7 @@ class MainActivity : AppCompatActivity() {
     fun getDetailUser(dataNama : String, dataAvatar : String, urldet : String) {
         val clientdet = AsyncHttpClient()
         clientdet.addHeader("User-Agent", "request")
-        clientdet.addHeader("Authorization", "token 78cf249fba5c703f1cf6fccb05df136fac606ebf")
+        clientdet.addHeader("Authorization", "token "+getString(R.string.key))
 
         clientdet.get(urldet, object : AsyncHttpResponseHandler(){
             override fun onSuccess(
@@ -116,10 +116,10 @@ class MainActivity : AppCompatActivity() {
                 val resultdet = String(responseBody)
 
                 val JSONObjectDet = JSONObject(resultdet)
-                val dataCompany = JSONObjectDet.getString("company").toString()
+                val dataCompany = getString(R.string.company) + JSONObjectDet.getString("company").toString()
                 val dataFollowers = JSONObjectDet.getString("followers").toString()
                 val dataLocation = JSONObjectDet.getString("location").toString()
-                val dataRepos = JSONObjectDet.getString("public_repos").toString()
+                val dataRepos = getString(R.string.repository) +JSONObjectDet.getString("public_repos").toString()
                 val githubUsr = GitHubUser(
                     dataNama,
                     dataCompany,
@@ -156,6 +156,19 @@ class MainActivity : AppCompatActivity() {
                 startActivity(intentBaru)
             }
         })
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.act_lang) {
+            val mIntent = Intent(Settings.ACTION_LOCALE_SETTINGS)
+            startActivity(mIntent)
+        }
+        return super.onOptionsItemSelected(item)
     }
 }
 

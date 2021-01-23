@@ -41,7 +41,7 @@ class FollowingFragment : Fragment() {
         val client = AsyncHttpClient()
 
         client.addHeader("User-Agent", "request")
-        client.addHeader("Authorization", "token 78cf249fba5c703f1cf6fccb05df136fac606ebf")
+        client.addHeader("Authorization", "token "+getString(R.string.key))
         val url = "https://api.github.com/users/$user/following"
         client.get(url, object : AsyncHttpResponseHandler() {
             override fun onSuccess(
@@ -86,7 +86,7 @@ class FollowingFragment : Fragment() {
     fun getDetailUser(dataNama : String, dataAvatar : String, urldet : String) {
         val clientdet = AsyncHttpClient()
         clientdet.addHeader("User-Agent", "request")
-        clientdet.addHeader("Authorization", "token 78cf249fba5c703f1cf6fccb05df136fac606ebf")
+        clientdet.addHeader("Authorization", "token "+getString(R.string.key))
 
         clientdet.get(urldet, object : AsyncHttpResponseHandler(){
             override fun onSuccess(
@@ -98,10 +98,10 @@ class FollowingFragment : Fragment() {
                 val resultdet = String(responseBody)
 
                 val JSONObjectDet = JSONObject(resultdet)
-                val dataCompany = JSONObjectDet.getString("company").toString()
+                val dataCompany = getString(R.string.company) + JSONObjectDet.getString("company").toString()
                 val dataFollowers = JSONObjectDet.getString("followers").toString()
                 val dataLocation = JSONObjectDet.getString("location").toString()
-                val dataRepos = JSONObjectDet.getString("public_repos").toString()
+                val dataRepos = getString(R.string.repository) + JSONObjectDet.getString("public_repos").toString()
                 val githubUsr = GitHubUser(
                     dataNama,
                     dataCompany,
