@@ -19,6 +19,11 @@ import kotlinx.android.synthetic.main.activity_main.*
 import org.json.JSONObject
 
 class MainActivity : AppCompatActivity() {
+
+    companion object {
+        const val KIRIM = "kirimData"
+    }
+
     private lateinit var binding : ActivityMainBinding
     private val list = ArrayList<GitHubUser>()
     var i=0;
@@ -152,7 +157,7 @@ class MainActivity : AppCompatActivity() {
         listUserAdapter.setOnItemClickCallback(object : listUserAdapter.OnItemClickCallback{
             override fun onItemClicked(data: GitHubUser) {
                 val intentBaru = Intent(this@MainActivity, detUser::class.java)
-                intentBaru.putExtra("kirimData", data)
+                intentBaru.putExtra(KIRIM, data)
                 startActivity(intentBaru)
             }
         })

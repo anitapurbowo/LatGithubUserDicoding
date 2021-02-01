@@ -24,9 +24,7 @@ class folUserAdapter (private val listUser:ArrayList<GitHubUser>) : RecyclerView
                 tvCompany.text = gitUser.company
                 tvRepos.text = gitUser.repository
                 Glide.with(binding.root).load(gitUser.image).into(imAvatar)
-                //imAvatar.setImageResource(gitUser.image)
                 cardAll.setOnClickListener {
-                    //Toast.makeText(itemView.context, "Favorite ${gitUser.nama}", Toast.LENGTH_SHORT).show()
                     onItemClickCallback?.onItemClicked(gitUser)
                 }
             }

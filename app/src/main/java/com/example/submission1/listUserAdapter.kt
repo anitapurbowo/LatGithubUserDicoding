@@ -23,10 +23,14 @@ class listUserAdapter (private val listUser:ArrayList<GitHubUser>) : RecyclerVie
                 tvNama.text = gitUser.nama
                 tvCompany.text = gitUser.company
                 tvRepos.text = gitUser.repository
-                Glide.with(binding.root).load(gitUser.image).into(imAvatar)
-                //imAvatar.setImageResource(gitUser.image)
+                Glide
+                    .with(binding.root)
+                    .load(gitUser.image)
+                    .placeholder(R.drawable.openimage)
+                    .error(R.drawable.ic_baseline_block_24)
+                    .into(imAvatar)
+
                 cardAll.setOnClickListener {
-                    //Toast.makeText(itemView.context, "Favorite ${gitUser.nama}", Toast.LENGTH_SHORT).show()
                     onItemClickCallback?.onItemClicked(gitUser)
                 }
             }

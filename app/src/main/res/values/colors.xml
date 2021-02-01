@@ -4,4 +4,6 @@
     <color name="colorPrimaryDark">#1D094C</color>
     <color name="colorAccent">#43F8E6</color>
     <color name="gray">#DCDCDC</color>
+    <color name="white">#FFF</color>
+    <color name="chipBorder">#73736C</color>
 </resources>

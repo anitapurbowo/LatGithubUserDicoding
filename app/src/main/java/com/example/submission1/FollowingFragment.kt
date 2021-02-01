@@ -52,7 +52,6 @@ class FollowingFragment : Fragment() {
                 pBar.visibility = View.INVISIBLE
                 var result = String(responseBody)
 
-//                val JSONObjectTemp = JSONObject(result)
                 val jsonArray = JSONArray(result)
                 for (i in 0 until jsonArray.length()) {
                     val JSONObject = jsonArray.getJSONObject(i)

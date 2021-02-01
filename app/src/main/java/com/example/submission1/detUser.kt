@@ -11,12 +11,22 @@ import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.activity_det_user.*
 
 class detUser : AppCompatActivity() {
+
+    companion object {
+        const val KIRIM = "kirimData"
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_det_user)
 
-        val dataUser = intent.getParcelableExtra<GitHubUser>("kirimData")
-        Glide.with(this).load(dataUser?.image).into(cvAvatar)
+        val dataUser = intent.getParcelableExtra<GitHubUser>(KIRIM)
+        Glide
+            .with(this)
+            .load(dataUser?.image)
+            .placeholder(R.drawable.openimage)
+            .error(R.drawable.ic_baseline_block_24)
+            .into(cvAvatar)
         tvNama.setText(dataUser?.nama)
         tvCompany.setText(dataUser?.company)
         tvLocation.setText(dataUser?.location)
