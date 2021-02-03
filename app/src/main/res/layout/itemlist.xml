@@ -18,17 +18,6 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:src="@android:color/darker_gray" />
 
-    <!--    <LinearLayout-->
-<!--        android:id="@+id/linearLayout"-->
-<!--        android:layout_width="252dp"-->
-<!--        android:layout_height="39dp"-->
-<!--        android:layout_marginStart="8dp"-->
-<!--        android:layout_marginTop="4dp"-->
-<!--        android:orientation="vertical"-->
-<!--        app:layout_constraintStart_toEndOf="@+id/imAvatar"-->
-
-<!--        app:layout_constraintTop_toTopOf="@id/imAvatar">-->
-
     <TextView
         android:id="@+id/tvRepos"
         android:layout_width="wrap_content"
@@ -66,8 +55,14 @@
         app:layout_constraintStart_toStartOf="@+id/tvNama"
         app:layout_constraintTop_toBottomOf="@+id/tvNama" />
 
-    <!--    </LinearLayout>-->
-
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="50dp"
+        android:layout_height="48dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tvNama"
+        app:srcCompat="@drawable/stargrey" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
