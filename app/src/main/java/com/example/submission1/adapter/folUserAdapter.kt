@@ -1,9 +1,10 @@
-package com.example.submission1
+package com.example.submission1.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.submission1.dataclass.GitHubUser
 import com.example.submission1.databinding.ItemlistBinding
 
 class folUserAdapter (private val listUser:ArrayList<GitHubUser>) : RecyclerView.Adapter<folUserAdapter.ListViewHolder>() {

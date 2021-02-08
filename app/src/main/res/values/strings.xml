@@ -6,5 +6,15 @@
     <string name="repository">Repository : </string>
     <string name="lang_setting">Change Language</string>
 
-    <string name="key">78579304accaafc2a639e5515512a47bd1b4d079</string>
+    <string name="hapus">To UnFollow, Do that on Detail Page</string>
+    <string name="reminder">Return to your App to see your favorite Repository</string>
+
+    <string name="titleNotif">Notification Setting</string>
+    <string name="katareminder">Reminder</string>
+    <string name="offAlarm">Reminder already OFF</string>
+    <string name="onAlarm">Repeating alarm set up</string>
+
+    <string name="switchtext">Notification ON</string>
+
+    <string name="key">467dda64fe0a0c13135d02e5721a71d283a78532</string>
 </resources>

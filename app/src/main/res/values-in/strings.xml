@@ -7,5 +7,15 @@
     <string name="repository">Penyimpanan : </string>
     <string name="lang_setting">Ubah Bahasa</string>
 
-    <string name="key">78579304accaafc2a639e5515512a47bd1b4d079</string>
+    <string name="hapus">Untuk Menghapus Favourite, lakukan pada Halaman Detail</string>
+    <string name="reminder">Buka Aplikasi untuk melihat favorite penyimpanan</string>
+
+    <string name="titleNotif">Peraturan Notifikasi</string>
+    <string name="katareminder">Pengingat</string>
+    <string name="offAlarm">Pengingat telah dimatikan</string>
+    <string name="onAlarm">Pengingat telah diaktifkan</string>
+
+    <string name="switchtext">Notifikasi Aktif</string>
+
+    <string name="key">467dda64fe0a0c13135d02e5721a71d283a78532</string>
 </resources>

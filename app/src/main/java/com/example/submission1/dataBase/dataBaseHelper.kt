@@ -4,25 +4,27 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.example.submission1.userFav
+import com.example.submission1.dataclass.userFav
 
 @Database(entities = arrayOf(userFav::class), version = 1)
 
 abstract class dataBaseHelper : RoomDatabase() {
-    abstract fun UserFunDAO() : userFavDAO
+    abstract fun UserFavDAO() : userFavDAO
     companion object {
         private var INSTANCE : dataBaseHelper? = null
         private val LOCK = Any()
 
-        operator fun invoke(context: Context) = INSTANCE ?: synchronized(LOCK) {
-            INSTANCE ?: buildDatabase(context).also {
-                INSTANCE = dataBaseHelper
+        fun getDatabase(context: Context): dataBaseHelper {
+            return INSTANCE ?: synchronized(this) {
+                val instance = Room.databaseBuilder(
+                    context.applicationContext,
+                    dataBaseHelper::class.java, "dbUGit.db"
+                ).build()
+                INSTANCE = instance
+                instance
             }
         }
-
-        private fun buildDatabase(context: Context) = Room.databaseBuilder(
-            context.applicationContext,
-            userFav::class.java,"dbUserFav.db"
-        ).build()
     }
+
+
 }

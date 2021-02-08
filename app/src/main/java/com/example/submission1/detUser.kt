@@ -6,8 +6,9 @@ import android.os.Bundle
 import android.provider.Settings
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.Toast
 import com.bumptech.glide.Glide
+import com.example.submission1.dataclass.GitHubUser
+import com.example.submission1.fragment.SectionPagerAdapter
 import kotlinx.android.synthetic.main.activity_det_user.*
 
 class detUser : AppCompatActivity() {
@@ -32,7 +33,11 @@ class detUser : AppCompatActivity() {
         tvLocation.setText(dataUser?.location)
         tvRepo.setText(dataUser?.repository)
 
-        val sectionPagerAdapter = SectionPagerAdapter(this, supportFragmentManager)
+        val sectionPagerAdapter =
+            SectionPagerAdapter(
+                this,
+                supportFragmentManager
+            )
         vPager.adapter = sectionPagerAdapter
         tlFoll.setupWithViewPager(vPager)
         supportActionBar?.elevation = 0f

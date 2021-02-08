@@ -1,5 +1,6 @@
-package com.example.submission1
+package com.example.submission1.fragment
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -9,6 +10,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.submission1.dataclass.GitHubUser
+import com.example.submission1.R
+import com.example.submission1.adapter.folUserAdapter
+import com.example.submission1.adapter.listUserAdapter
+import com.example.submission1.dataBase.dataBaseHelper
+import com.example.submission1.detUser
 import com.loopj.android.http.AsyncHttpClient
 import com.loopj.android.http.AsyncHttpResponseHandler
 import cz.msebera.android.httpclient.Header
@@ -16,16 +23,20 @@ import kotlinx.android.synthetic.main.fragment_followers.*
 import org.json.JSONArray
 import org.json.JSONObject
 
-class FollowingFragment : Fragment() {
+class FollowersFragment : Fragment() {
     private var list: ArrayList<GitHubUser> = ArrayList()
     private lateinit var adapter : folUserAdapter
 
+    val DB by lazy { dataBaseHelper }
+    internal lateinit var context : Context
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        context = requireContext()
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_following, container, false)
+        return inflater.inflate(R.layout.fragment_followers, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -42,7 +53,7 @@ class FollowingFragment : Fragment() {
 
         client.addHeader("User-Agent", "request")
         client.addHeader("Authorization", "token "+getString(R.string.key))
-        val url = "https://api.github.com/users/$user/following"
+        val url = "https://api.github.com/users/$user/followers"
         client.get(url, object : AsyncHttpResponseHandler() {
             override fun onSuccess(
                 statusCode: Int,
@@ -107,7 +118,7 @@ class FollowingFragment : Fragment() {
                     dataFollowers,
                     dataRepos,
                     dataAvatar,
-                    dataLocation
+                    dataLocation, 0
                 )
                 list.add(githubUsr)
                 Log.d("ABC2", resultdet)
@@ -127,7 +138,8 @@ class FollowingFragment : Fragment() {
     }
     private fun showRecyclerList() {
         rvUser.layoutManager = LinearLayoutManager(activity)
-        val listUserAdapter = listUserAdapter(list)
+        val listUserAdapter =
+            listUserAdapter(list)
         rvUser.adapter = listUserAdapter
 
         listUserAdapter.setOnItemClickCallback(object : listUserAdapter.OnItemClickCallback{
@@ -136,6 +148,11 @@ class FollowingFragment : Fragment() {
                 intentBaru.putExtra("kirimData", data)
                 startActivity(intentBaru)
             }
+
+            override fun onFavUserClicked(data: GitHubUser, position: Int) {
+
+            }
+
         })
     }
 

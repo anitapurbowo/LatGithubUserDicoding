@@ -3,4 +3,7 @@
     <item
         android:id="@+id/act_lang"
         android:title="@string/lang_setting" />
+    <item
+        android:id="@+id/notif"
+        android:title="Notification Setting" />
 </menu>

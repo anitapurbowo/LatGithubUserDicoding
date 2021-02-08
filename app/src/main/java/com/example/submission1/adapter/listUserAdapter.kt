@@ -1,9 +1,11 @@
-package com.example.submission1
+package com.example.submission1.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.submission1.dataclass.GitHubUser
+import com.example.submission1.R
 import com.example.submission1.databinding.ItemlistBinding
 
 class listUserAdapter (private val listUser:ArrayList<GitHubUser>) : RecyclerView.Adapter<listUserAdapter.ListViewHolder>() {
@@ -11,6 +13,7 @@ class listUserAdapter (private val listUser:ArrayList<GitHubUser>) : RecyclerVie
 
     interface OnItemClickCallback {
         fun onItemClicked(data : GitHubUser)
+        fun onFavUserClicked(data : GitHubUser, position : Int)
     }
 
     fun setOnItemClickCallback(onItemClickCallback: OnItemClickCallback) {
@@ -32,6 +35,15 @@ class listUserAdapter (private val listUser:ArrayList<GitHubUser>) : RecyclerVie
 
                 cardAll.setOnClickListener {
                     onItemClickCallback?.onItemClicked(gitUser)
+                }
+
+                if (gitUser.fav==1)
+                    ivFavUser.setImageResource(R.drawable.ic_baseline_star_24)
+                else
+                    ivFavUser.setImageResource(R.drawable.stargrey)
+
+                ivFavUser.setOnClickListener {
+                    onItemClickCallback?.onFavUserClicked(gitUser,adapterPosition)
                 }
             }
         }
